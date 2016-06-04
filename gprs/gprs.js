@@ -14,20 +14,20 @@ var twitter = require('twitter');
 var twitterHandle = '@nodeschoolla';
 
 var twit = new twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_KEY_TOKEN,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  consumer_key: process.env.TWITTER_CONSUMER_KEY || '6K3bAegAUzs5zN7gOrpS1GGbs',
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET || 'mJFaCV3PSJJDW8VRa64W4uPn8WuqjSwyL2zo69pQir3jPd1Eou',
+  access_token_key: process.env.TWITTER_ACCESS_KEY_TOKEN || '3295234826-wE8GtkBRNhh9lofqUBKmbY97Cgbhaecm6YgFFze',
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET || 'XfOErlqjgLc5LSe9FyELigKB16ckPpCbCwLGsN37Ao5Dh'
 });
 
-var phoneNumber = '18189614222'; // Replace the #s with the String representation of the phone number, including country code (1 for USA)
+var phoneNumber = '+18189614222'; // Replace the #s with the String representation of the phone number, including country code (1 for USA)
 var message = 'NodeSchool LA is fun! We\'re playing with Tessels';
 var status = twitterHandle + ' ' + message;
 
 //  Port, callback
 var gprs = gprslib.use(tessel.port['A']);
 
-var tweet = function(status) {
+var tweet = function (status) {
   status = status || 'Tessel Booted';
 
   twit.post('statuses/update', {status: status}, function(error, tweet, response){
@@ -35,6 +35,12 @@ var tweet = function(status) {
       console.log('error sending tweet:', error);
     } else {
       console.log('Successfully tweeted! Tweet text:', tweet.text);
+      gprs.dial(phoneNumber, function(err, data){
+        if (err) {
+          return;
+        }
+        console.log(data);
+      });
     }
   });
 };
