@@ -10,12 +10,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "touch .env.sample && echo \"TWITTER_CONSUMER_KEY=\nTWITTER_CONSUMER_SECRET=\nTWITTER_ACCESS_KEY_TOKEN=\nTWITTER_ACCESS_TOKEN_SECRET=\" > .env.sample"
   },
-  "repository": "www.github.com/tessel/t2-cli",
+  "repository": "www.github.com/etanlubeck/nodeschoolla-tessel.git",
   "keywords": [
     "Tessel"
   ],
   "license": "MIT",
-  "readme": "A bare bones Tessel 2 blinky script."
+  "readme": "A bare bones Tessel 2 GPRS Script"
 }
